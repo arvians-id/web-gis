@@ -4,7 +4,6 @@ exports.index = (req, res) => {
             title: 'Login',
             content: '../auth/login',
         }
-
         res.render('layouts/authLayout', data)
     } catch(error) {
         req.flash('fail', error.message);
@@ -16,5 +15,5 @@ exports.logout = (req, res) => {
     req.logout();
     req.session.destroy();
 
-    res.redirect('/');
+    res.redirect('/login');
 }

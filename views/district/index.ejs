@@ -1,0 +1,62 @@
+<div class="section-body">
+  <h2 class="section-title">Kecamatan</h2>
+  <p class="section-lead">
+    Jika anda ingin membuat data kecamatan <a href="/districts/create">Klik disini</a>.
+  </p>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>Data Kecamatan</h4>
+        </div>
+        <div class="card-body">
+          <%- include('../layouts/partials/alerts') %>
+          <div class="table-responsive">
+            <table class="table table-striped" id="table-1">
+              <thead>
+                <tr>
+                  <th class="text-center">No</th>
+                  <th>Nama Kecamatan</th>
+                  <th>Luas Kecamatan</th>
+                  <th>Latitude</th>
+                  <th>Longitude</th>
+                  <th class="text-center">Status</th>
+                  <th class="text-center">Aksi</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% districts.forEach((district, i) => { %>
+                  <tr>
+                    <td class="text-center"><%- i + 1 %></td>
+                    <td><%- district.nama %></td>
+                    <td><%- district.luas %> Km&sup2;</td>
+                    <td><%- district.latitude %></td>
+                    <td><%- district.longitude %></td>
+                    <td class="text-center">
+                      <form action="/districts/<%- district.id %>/active" class="d-inline" method="POST" onsubmit="return confirm('Yakin ingin merubah status ini?')">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <% if(district.isActive){ %>
+                            <button class="btn btn-danger btn-sm">Nonaktifkan</button>
+                            <% }else{ %>
+                            <button class="btn btn-primary btn-sm">Aktifkan</button>
+                          <% } %>
+                        </form>
+                    </td>
+                    <td class="text-center">
+                        <a href="/districts/<%- district.id %>/edit" class="btn btn-warning btn-sm">Ubah</a>
+                        <form action="/districts/<%- district.id %>?_method=DELETE" class="d-inline" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                          <button class="btn btn-danger btn-sm">Hapus</button>
+                        </form>
+                    </td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,56 @@
+<div class="section-body">
+    <h2 class="section-title">Ubah Data Kecamatan</h2>
+    <p class="section-lead">
+      Jika anda ingin meilhat data kecamatan <a href="/districts">Klik disini</a>.
+    </p>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h4>Ubah Kecamatan</h4>
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-8">
+                <%- include('../layouts/partials/alerts') %>
+              </div>
+            </div>
+            <form action="/districts/<%= district.id %>?_method=PUT" method="POST">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Kecamatan</label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" name="nama" value="<%- old.nama ? old.nama : district.nama %>" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Luas Kecamatan (Km&sup2;)</label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" name="luas" value="<%- old.luas ? old.luas : district.luas %>" class="form-control" placeholder="contoh: 2.4">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Latitude</label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" name="latitude" value="<%- old.latitude ? old.latitude : district.latitude %>" class="form-control" placeholder="contoh: -6.9301741">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Longitude</label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" name="longitude" value="<%- old.longitude ? old.longitude : district.longitude %>" class="form-control" placeholder="contoh: 106.9159347">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                <div class="col-sm-12 col-md-7">
+                  <button class="btn btn-primary">Simpan</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

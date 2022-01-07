@@ -1,4 +1,4 @@
-const { user } = require('../../../models'); 
+const Models = require('../../../models'); 
 const bcrypt = require('bcrypt');
 
 exports.index = (req, res) => {
@@ -19,7 +19,7 @@ exports.register = async (req, res) => {
     try{
         const password = await bcrypt.hash(req.body.password, 10);
         
-        await user.create({
+        await Models.user.create({
             name: req.body.name,
             username: req.body.username,
             password: password,

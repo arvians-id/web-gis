@@ -1,33 +1,161 @@
-<div class="main-content">
-    <section class="section">
-        <div class="section-header">
-            <h1>Default Layout</h1>
-            <div class="section-header-breadcrumb">
-              <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-              <div class="breadcrumb-item"><a href="#">Layout</a></div>
-              <div class="breadcrumb-item">Default Layout</div>
-            </div>
-          </div>
-
-          <div class="section-body">
-            <h2 class="section-title">This is Example Page</h2>
-            <p class="section-lead">This page is just an example for you to create your own page.</p>
-            <div class="card">
-              <div class="card-header">
-                <h4>Example Card</h4>
-              </div>
-              <div class="card-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-              </div>
-              <div class="card-footer bg-whitesmoke">
-                This is card footer
-              </div>
-            </div>
+<div class="section-body">
+    <h2 class="section-title">Dashboard</h2>
+    <p class="section-lead">Data Map Kecamatan Warudoyong.</p>
+    <div class="card">
+        <div class="card-header">
+            <h4>Map Kecamatan Warudoyong</h4>
         </div>
-    </section>
+        <div class="card-body">
+            <div id="map" data-height="700" style="height: 700px; position: relative; overflow: hidden;"></div>
+        </div>
+    </div>
 </div>
+
+<script src="/javascripts/leaflet.ajax.js"></script>
+<script>
+    function ucfisrt(string){
+        return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    }
+
+    // ICON
+    var LeafIcon = L.Icon.extend({
+        options: {
+            shadowUrl: '/icons/leaf-shadow.png',
+            iconSize:     [38, 95],
+            shadowSize:   [50, 64],
+            iconAnchor:   [22, 94],
+            shadowAnchor: [4, 62],
+            popupAnchor:  [-3, -76]
+        }
+    });
+    orangeIcon = new LeafIcon({iconUrl: '/icons/leaf-orange.png'});
+    L.icon = function (options) {
+        return new L.Icon(options);
+    };
+
+    var littleton = L.marker([-6.9301741,106.9159347]).bindPopup('This is Littleton, CO.'),
+        denver    = L.marker([-6.9319971,106.9098942]).bindPopup('This is Denver, CO.');
+        
+    var asu = L.marker([-6.9263813,106.9086348], {
+        icon: orangeIcon
+    }).bindPopup('This is Denver, CO.');
+
+    // Layer Maps
+    var asus = L.layerGroup([asu])
+    var cities = L.layerGroup([littleton, denver]);
+
+	const map = L.map('map',{
+        layers: [cities, asus]
+    }).setView([-6.9301741,106.9159347], 14);
+
+    var overlayMaps = {
+        "Cities": cities,
+        "Asus": asus
+    };
+
+    L.control.layers(null, overlayMaps, {position: 'bottomleft'}).addTo(map);
+
+	const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox/streets-v11',
+		tileSize: 512,
+		zoomOffset: -1
+	}).addTo(map);
+
+    var info = L.control();
+
+    // RIGHT POPUP
+    info.onAdd = function (map) {
+        this._div = L.DomUtil.create('div', 'info');
+        this.update();
+        return this._div;
+    };
+
+    info.update = function (props) {
+        this._div.innerHTML = '<h4>Kecamatan Warudoyong</h4><b></b> ' + 
+                                (props ? 'Kelurahan ' + 
+                                (ucfisrt(props['DESA'])) +
+                                '<br> Luas '  + props['LUAS_WILAY'] + ' Km&sup2;'
+                                : ' Hover over a state');
+    };
+
+    info.addTo(map);
+
+    // HIGHLIGHT
+    function highlightFeature(e) {
+        const layer = e.target;
+
+        layer.setStyle({
+            weight: 5,
+            color: '#666',
+            dashArray: '',
+            fillOpacity: 0.7
+        });
+
+        if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
+            layer.bringToFront();
+        }
+        info.update(layer.feature.properties);
+    }
+
+    function resetHighlight(e) {
+        geojson.resetStyle(e.target);
+
+        info.update()
+    }
+
+	function onEachFeature(f,l){
+        let out = [];
+        if (f.properties){
+            out.push(f.properties['DESA']);
+            l.bindPopup(out.join("<br />"));
+            l.on({
+                mouseover: highlightFeature,
+                mouseout: resetHighlight,
+            });
+        }
+    }
+
+    const colorDaerah = [['#FF1700', 'BENTENG'], ['#FFE400', 'DAYEUHLUHUR'], ['#FF8E00', 'NYOMPLONG'], ['#95CD41', 'SUKAKARYA'], ['#F2789F', 'WARUDOYONG']];
+    function style(f){
+        let color = f.properties['DESA'] == 'BENTENG' ? colorDaerah[0][0] :
+                    f.properties['DESA'] == 'DAYEUHLUHUR' ? colorDaerah[1][0] :
+                    f.properties['DESA'] == 'NYOMPLONG' ? colorDaerah[2][0] :
+                    f.properties['DESA'] == 'SUKAKARYA' ? colorDaerah[3][0] :
+                    f.properties['DESA'] == 'WARUDOYONG' ? colorDaerah[4][0] : '';
+        return {
+            "color": color,
+            "weight": 2,
+            "opacity": 0.2
+        };
+    }
+
+    // MAPS GEOJSON
+    let geojson = new L.GeoJSON.AJAX(
+        [
+            "/geojson/benteng.json",
+            "/geojson/dayeuhluhur.json",
+            "/geojson/nyomplong.json",
+            "/geojson/sukakarya.json",
+            "/geojson/warudoyong.json",
+        ],
+        { onEachFeature, style }
+    ).addTo(map);
+
+    // LEGEND
+    const legend = L.control({position: 'bottomright'});
+
+    legend.onAdd = function (map) {
+        let div = L.DomUtil.create('div', 'info legend');
+        div.innerHTML = '<p>Indikator Kelurahan</p>';
+        for (let i = 0; i < colorDaerah.length; i++) {
+            div.innerHTML += `<p><i style="background:${ colorDaerah[i][0] }"></i> ${ ucfisrt(colorDaerah[i][1]) }</p>`;
+        }
+
+        return div;
+    };
+
+    legend.addTo(map);
+</script>

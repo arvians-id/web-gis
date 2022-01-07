@@ -31,7 +31,7 @@ const rules = [
         .notEmpty().withMessage('The password confirmation field cannot be empty')
         .custom((value, { req }) => {
             if (value !== req.body.password) {
-                throw new Error('Password confirmation does not match password');
+                throw new Error('Password does not match password');
             }
         
             return true;

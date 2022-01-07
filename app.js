@@ -41,6 +41,7 @@ app.use((req, res, next) => {
   res.locals.old = req.flash('old')[0] || '';
   res.locals.messages = req.flash();
   res.locals.user = req.user;
+  res.locals.currentUrl = (req.protocol + '://' + req.get('host') + req.originalUrl).split('/').splice(2, 2);
   
   next();
 })
