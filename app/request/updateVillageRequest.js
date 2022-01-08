@@ -20,13 +20,6 @@ const rules = [
         .notEmpty().withMessage('The warna field cannot be empty')
         .trim()
         .escape(),
-    check('geojson')
-        .custom((value, { req }) => {
-            if(typeof req.file == 'undefined')
-                throw new Error('The geojson field invalid');
-            
-            return true
-        })
 ];
 
 const validateTodo = [
@@ -38,7 +31,7 @@ const validateTodo = [
             } else if (err) {
                 error = err.message
             }
-            
+
             res.locals.fileError = error || null;
 
             next()
@@ -57,7 +50,7 @@ const validateTodo = [
                     }
                 })
             }
-            
+
             const array = errors.array();
 
             if(res.locals.fileError){
@@ -67,11 +60,11 @@ const validateTodo = [
                 };
                 array.push(file);
             }
-
+            
             req.flash('old', req.body);
             req.flash('error', array);
 
-            return res.redirect('/villages/create');
+            return res.redirect(`/villages/${req.params.id}/edit`);
         }
         
         next()

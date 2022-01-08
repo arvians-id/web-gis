@@ -1,5 +1,6 @@
 require('dotenv').config();
 
+const mysql = require('mysql2/promise');
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -12,6 +13,7 @@ const flash = require('connect-flash');
 const passport = require('passport');
 const initializePassport = require('./config/passport');
 initializePassport(passport);
+const MySQLStore = require('express-mysql-session')(session);
 
 const app = express();
 
@@ -21,16 +23,21 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+const options = {
+  host: process.env.DB_HOSTNAME,
+  port: 3306,
+  user: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME
+};
+const connection = mysql.createPool(options);
+const sessionStore = new MySQLStore({}, connection);
 app.use(
   session({
     secret: 'secret',
     resave: true,
-    saveUninitialized: false,
-    cookie: { 
-        secure: false,
-        maxAge: 3600000,
-        expires: new Date(Date.now() + 3600000) 
-    }
+    store: sessionStore,
+    saveUninitialized: false
   }),
 );
 app.use(cookieParser());
@@ -44,6 +51,7 @@ app.use((req, res, next) => {
   res.cookie('XSRF-TOKEN', req.csrfToken());
   res.locals.csrfToken = req.csrfToken();
   res.locals.old = req.flash('old')[0] || '';
+  res.locals.errorFile = req.flash('errorFile');
   res.locals.messages = req.flash();
   res.locals.user = req.user;
   res.locals.currentUrl = (req.protocol + '://' + req.get('host') + req.originalUrl).split('/').splice(2, 2);

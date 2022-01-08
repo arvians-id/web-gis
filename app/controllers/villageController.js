@@ -74,18 +74,29 @@ exports.edit = async (req, res) => {
 
 exports.update = async (req, res) => {
     try{
+        const village = await Models.village.findByPk(req.params.id);
+
+        if(req.file){
+            const path = village.geojson;
+            fs.unlink(path, async (err) => {
+                if(err) {
+                    req.flash('fail', err.message);
+                    return res.redirect('/villages');
+                }
+            })
+        }
+        
         await Models.village.update({
+            districtId: req.body.districtId,
             nama: req.body.nama,
             luas: req.body.luas,
-            latitude: req.body.latitude,
-            longitude: req.body.longitude,
-            isActive: 0,
+            warna: req.body.warna,
+            geojson: req.file ? req.file.path : village.geojson,
         },{
             where: {
                 id: req.params.id
             }
         });
-
         req.flash('success', 'Data berhasil diubah!');
         res.redirect('/villages');
     } catch(error) {
@@ -104,16 +115,16 @@ exports.destroy = async (req, res) => {
                 req.flash('fail', err.message);
                 return res.redirect('/villages');
             }
-
-            await Models.village.destroy({
-                where: {
-                    id: req.params.id
-                }
-            });
-
-            req.flash('success', 'Data berhasil dihapus!');
-            res.redirect('/villages');
         })
+        
+        await Models.village.destroy({
+            where: {
+                id: req.params.id
+            }
+        });
+
+        req.flash('success', 'Data berhasil dihapus!');
+        res.redirect('/villages');
     } catch(error) {
         req.flash('fail', error.message);
         res.redirect('/villages');
