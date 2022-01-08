@@ -4,7 +4,7 @@ const path = require('path');
 
 const storage = multer.diskStorage({
     destination: (req, file, done) => {
-        done(null, 'public/images');
+        done(null, 'public/geojson');
     },
     filename: (req, file, done) => {
         done(null, uuid.v4() + path.extname(file.originalname));
@@ -12,11 +12,11 @@ const storage = multer.diskStorage({
   });
   
 const fileFilter = (req, file, done) => {
-    const mimeType = ['.png', '.jpeg', '.jpg'];
+    const mimeType = ['.json'];
     if(mimeType.includes(path.extname(file.originalname)))
         done(null, true);
     else
-        done(new Error('The image filed must have the extension ' + mimeType.join(' ')), false);
+        done(new Error('The file filed must have the extension ' + mimeType.join(' ')), false);
 }
   
 const upload = multer({ storage, fileFilter, limits: { fileSize: 1000 * 1000 * 1 } });

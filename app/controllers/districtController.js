@@ -98,7 +98,7 @@ exports.destroy = async (req, res) => {
         res.redirect('/districts');
     } catch(error) {
         req.flash('fail', error.message);
-        res.redirect('/districts/create');
+        res.redirect('/districts');
     }
 }
 
@@ -106,6 +106,7 @@ exports.active = async (req, res) => {
     try{
         const district = await Models.district.findByPk(req.params.id);
         const districts = await Models.district.findAll();
+        
         districts.map(district => {
             district.update({
                 isActive: 0

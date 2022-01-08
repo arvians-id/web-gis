@@ -1,0 +1,67 @@
+<div class="section-body">
+    <h2 class="section-title">Buat Data Kelurahan</h2>
+    <p class="section-lead">
+      Jika anda ingin meilhat data Kelurahan <a href="/villages">Klik disini</a>.
+    </p>
+
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h4>Buat Kelurahan</h4>
+          </div>
+          <div class="card-body">
+            <div class="row justify-content-center">
+              <div class="col-12 col-md-8">
+                <%- include('../layouts/partials/alerts') %>
+              </div>
+            </div>
+            <form action="/villages?_csrf=<%= csrfToken %>" method="POST" enctype="multipart/form-data">
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Kecamatan</label>
+                <div class="col-sm-12 col-md-7">
+                  <select class="form-control selectric" name="districtId">
+                    <option value="" selected disabled>Pilih</option>
+                    <% districts.forEach(district => { %>
+                      <option value="<%- district.id %>" <%- old.districtId == district.id ? 'selected' : '' %>><%- district.nama %></option>
+                    <% }) %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Nama Kelurahan</label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" name="nama" value="<%- old.nama %>" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Luas Kelurahan (Km&sup2;)</label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="text" name="luas" value="<%- old.luas %>" class="form-control" placeholder="contoh: 2.4">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Warna</label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="color" name="warna" value="<%- old.warna %>" class="form-control">
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">File GeoJson</label>
+                <div class="col-sm-12 col-md-7">
+                  <input type="file" name="geojson" class="form-control">
+                  <small class="text-danger">File harus berekstensi .json</small>
+                </div>
+              </div>
+              <div class="form-group row mb-4">
+                <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                <div class="col-sm-12 col-md-7">
+                  <button class="btn btn-primary">Simpan</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

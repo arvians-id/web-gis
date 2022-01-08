@@ -14,7 +14,7 @@ module.exports = {
       },
       luas: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       latitude: {
         allowNull: false,

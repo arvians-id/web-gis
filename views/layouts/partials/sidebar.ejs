@@ -11,7 +11,7 @@
         <li <%- currentUrl[1] == '' ? 'class="active"' : '' %>><a class="nav-link" href="/"><i class="fas fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
         <li class="menu-header">Master Data</li>
         <li <%- currentUrl[1] == 'districts' ? 'class="active"' : '' %>><a class="nav-link" href="/districts"><i class="fas fa-building"></i> <span>Kecamatan</span></a></li>
-        <li><a class="nav-link" href="blank.html"><i class="fas fa-archway"></i> <span>Kelurahan</span></a></li>
+        <li <%- currentUrl[1] == 'villages' ? 'class="active"' : '' %>><a class="nav-link" href="/villages"><i class="fas fa-archway"></i> <span>Kelurahan</span></a></li>
         <li class="nav-item dropdown">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-map-marker-alt"></i> <span>Data Kelurahan</span></a>
           <ul class="dropdown-menu">

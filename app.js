@@ -21,15 +21,20 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(flash());
 app.use(
   session({
     secret: 'secret',
-    resave: false,
+    resave: true,
     saveUninitialized: false,
+    cookie: { 
+        secure: false,
+        maxAge: 3600000,
+        expires: new Date(Date.now() + 3600000) 
+    }
   }),
 );
+app.use(cookieParser());
+app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
