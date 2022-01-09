@@ -1,4 +1,5 @@
 const Models = require('../../models');
+const fs = require('fs');
 
 exports.index = async (req, res) => {
     try {
@@ -88,6 +89,24 @@ exports.update = async (req, res) => {
 
 exports.destroy = async (req, res) => {
     try{
+        const district = await Models.district.findOne({
+            where: {
+                id: req.params.id
+            },
+            include: ['villages']
+        });
+        if(district){
+            const paths = district.villages;
+            paths.map(path => {
+                fs.unlink(path.geojson, async (err) => {
+                    if (err) {
+                        req.flash('fail', err.message + '. But success deleted');
+                        res.redirect('/failure');
+                    }
+                })
+            })
+        }
+
         await Models.district.destroy({
             where: {
                 id: req.params.id
@@ -98,7 +117,7 @@ exports.destroy = async (req, res) => {
         res.redirect('/districts');
     } catch(error) {
         req.flash('fail', error.message);
-        res.redirect('/districts');
+        res.redirect('/failure');
     }
 }
 
@@ -120,6 +139,6 @@ exports.active = async (req, res) => {
         res.redirect('/districts');
     } catch(error) {
         req.flash('fail', error.message);
-        res.redirect(`/districts`);
+        res.redirect('/failure');
     }
 }

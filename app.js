@@ -14,6 +14,7 @@ const passport = require('passport');
 const initializePassport = require('./config/passport');
 initializePassport(passport);
 const MySQLStore = require('express-mysql-session')(session);
+const Models = require('./models');
 
 const app = express();
 
@@ -47,13 +48,14 @@ app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(methodOverride('_method'));
 app.use(csrf({ cookie: true }));
-app.use((req, res, next) => {
+app.use( async (req, res, next) => {
   res.cookie('XSRF-TOKEN', req.csrfToken());
   res.locals.csrfToken = req.csrfToken();
   res.locals.old = req.flash('old')[0] || '';
   res.locals.messages = req.flash();
   res.locals.user = req.user;
   res.locals.currentUrl = (req.protocol + '://' + req.get('host') + req.originalUrl).split('/').splice(2, 2);
+  res.locals.districtActive = await Models.district.findOne({ where: { isActive: 1 } }) || '' ;
   
   next();
 })
