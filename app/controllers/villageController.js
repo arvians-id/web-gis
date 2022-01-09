@@ -15,7 +15,7 @@ exports.index = async (req, res) => {
         res.render('layouts/dataLayout', data);
     } catch (error) {
         req.flash('fail', error.message);
-        res.redirect('/villages');
+        res.redirect('/failure');
     }
 }
 
@@ -32,7 +32,7 @@ exports.create = async (req, res) => {
         res.render('layouts/inputLayout', data);
     } catch (error) {
         req.flash('fail', error.message);
-        res.redirect('/villages/create');
+        res.redirect('/failure');
     }
 }
 
@@ -50,7 +50,7 @@ exports.store = async (req, res) => {
         res.redirect('/villages');
     } catch(error) {
         req.flash('fail', error.message);
-        res.redirect('/villages/create');
+        res.redirect('/failure');
     }
 }
 
@@ -68,7 +68,7 @@ exports.edit = async (req, res) => {
         res.render('layouts/inputLayout', data);
     } catch (error) {
         req.flash('fail', error.message);
-        res.redirect(`/villages/${req.params.id}/edit`);
+        res.redirect('/failure');
     }
 }
 
@@ -80,8 +80,8 @@ exports.update = async (req, res) => {
             const path = village.geojson;
             fs.unlink(path, async (err) => {
                 if(err) {
-                    req.flash('fail', err.message);
-                    return res.redirect('/villages');
+                    req.flash('fail', err.message + '. But success updated');
+                    res.redirect('/failure');
                 }
             })
         }
@@ -101,7 +101,7 @@ exports.update = async (req, res) => {
         res.redirect('/villages');
     } catch(error) {
         req.flash('fail', error.message);
-        res.redirect(`/villages/${req.params.id}/edit`);
+        res.redirect('/failure');
     }
 }
 
@@ -112,8 +112,8 @@ exports.destroy = async (req, res) => {
 
         fs.unlink(path, async (err) => {
             if (err) {
-                req.flash('fail', err.message);
-                return res.redirect('/villages');
+                req.flash('fail', err.message + '. But success deleted');
+                res.redirect('/failure');
             }
         })
         
@@ -127,6 +127,6 @@ exports.destroy = async (req, res) => {
         res.redirect('/villages');
     } catch(error) {
         req.flash('fail', error.message);
-        res.redirect('/villages');
+        res.redirect('/failure');
     }
 }

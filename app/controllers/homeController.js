@@ -7,6 +7,6 @@ exports.index = (req, res) => {
         res.render('layouts/homeLayout', data);
     } catch (error) {
         req.flash('fail', error.message);
-        res.redirect('/');
+        res.redirect('/failure');
     }
 }

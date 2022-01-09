@@ -51,7 +51,6 @@ app.use((req, res, next) => {
   res.cookie('XSRF-TOKEN', req.csrfToken());
   res.locals.csrfToken = req.csrfToken();
   res.locals.old = req.flash('old')[0] || '';
-  res.locals.errorFile = req.flash('errorFile');
   res.locals.messages = req.flash();
   res.locals.user = req.user;
   res.locals.currentUrl = (req.protocol + '://' + req.get('host') + req.originalUrl).split('/').splice(2, 2);
@@ -61,6 +60,7 @@ app.use((req, res, next) => {
 
 // Routes
 require('./routes')(app, passport);
+app.get('/failure', (req, res) => res.render('errors/errorPromise'));
 app.use(function(req, res, next) {
   next(createError(404));
 });

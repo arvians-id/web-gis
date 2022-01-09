@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     luas: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.FLOAT
     },
     latitude: {
       allowNull: false,

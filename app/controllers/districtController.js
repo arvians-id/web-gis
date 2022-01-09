@@ -12,7 +12,7 @@ exports.index = async (req, res) => {
         res.render('layouts/dataLayout', data);
     } catch (error) {
         req.flash('fail', error.message);
-        res.redirect('/districts');
+        res.redirect('/failure');
     }
 }
 
@@ -26,7 +26,7 @@ exports.create = (req, res) => {
         res.render('layouts/inputLayout', data);
     } catch (error) {
         req.flash('fail', error.message);
-        res.redirect('/districts/create');
+        res.redirect('/failure');
     }
 }
 
@@ -44,7 +44,7 @@ exports.store = async (req, res) => {
         res.redirect('/districts');
     } catch(error) {
         req.flash('fail', error.message);
-        res.redirect('/districts/create');
+        res.redirect('/failure');
     }
 }
 
@@ -60,7 +60,7 @@ exports.edit = async (req, res) => {
         res.render('layouts/inputLayout', data);
     } catch (error) {
         req.flash('fail', error.message);
-        res.redirect(`/districts/${req.params.id}/edit`);
+        res.redirect('/failure');
     }
 }
 
@@ -82,7 +82,7 @@ exports.update = async (req, res) => {
         res.redirect('/districts');
     } catch(error) {
         req.flash('fail', error.message);
-        res.redirect(`/districts/${req.params.id}/edit`);
+        res.redirect('/failure');
     }
 }
 

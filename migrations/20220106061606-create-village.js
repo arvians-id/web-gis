@@ -24,7 +24,7 @@ module.exports = {
       },
       luas: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       warna: {
         allowNull: false,

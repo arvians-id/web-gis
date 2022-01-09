@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     luas: {
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.FLOAT
     },
     warna: {
       allowNull: false,

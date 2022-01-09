@@ -11,7 +11,7 @@ exports.index = (req, res) => {
         res.render('layouts/authLayout', data)
     } catch(error) {
         req.flash('fail', error.message);
-        res.redirect('/register');
+        res.redirect('/failure');
     }
 }
 

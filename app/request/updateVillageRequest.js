@@ -1,7 +1,30 @@
 const { check, validationResult } = require('express-validator');
-const { upload, multer } = require('../../config/multer');
 const fs = require('fs');
+const multer = require('multer');
+const uuid = require('uuid');
+const path = require('path');
 
+// Multer
+const storage = multer.diskStorage({
+    destination: (req, file, done) => {
+        done(null, 'public/geojson');
+    },
+    filename: (req, file, done) => {
+        done(null, uuid.v4() + path.extname(file.originalname));
+    }
+  });
+  
+const fileFilter = (req, file, done) => {
+    const mimeType = ['.json'];
+    if(mimeType.includes(path.extname(file.originalname)))
+        done(null, true);
+    else
+        done(new Error('The file filed must have the extension ' + mimeType.join(' ')), false);
+}
+  
+const upload = multer({ storage, fileFilter, limits: { fileSize: 1000 * 1000 * 1 } });
+
+// Rules
 const rules = [
     check('districtId')
         .notEmpty().withMessage('The kecamatan field cannot be empty')
@@ -22,6 +45,7 @@ const rules = [
         .escape(),
 ];
 
+// Middleware
 const validateTodo = [
     (req, res, next) => {
         upload.single('geojson')(req, res, function (err) {
@@ -32,7 +56,7 @@ const validateTodo = [
                 error = err.message
             }
 
-            res.locals.fileError = error || null;
+            res.locals.fileError = error;
 
             next()
         })
