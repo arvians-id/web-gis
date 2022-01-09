@@ -1,0 +1,53 @@
+<div class="section-body">
+    <h2 class="section-title">Penduduk</h2>
+    <p class="section-lead">
+      Jika anda ingin membuat data penduduk <a href="/data-populations/create">Klik disini</a>.
+    </p>
+  
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+            <h4>Data Penduduk</h4>
+          </div>
+          <div class="card-body">
+            <%- include('../layouts/partials/alerts') %>
+            <div class="table-responsive">
+              <table class="table table-striped" id="table-1">
+                <thead>
+                  <tr>
+                    <th class="text-center">No</th>
+                    <th>Nama Kelurahan</th>
+                    <th>Laki-Laki</th>
+                    <th>Perempuan</th>
+                    <th>Latitude</th>
+                    <th>Longitude</th>
+                    <th class="text-center">Aksi</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% dataPopulations.forEach((dataPopulation, i) => { %>
+                    <tr>
+                      <td class="text-center"><%- i + 1 %></td>
+                      <td><%- dataPopulation.village.nama %></td>
+                      <td><%- dataPopulation.laki_laki %> Km&sup2;</td>
+                      <td><%- dataPopulation.perempuan %> Km&sup2;</td>
+                      <td><%- dataPopulation.latitude %></td>
+                      <td><%- dataPopulation.longitude %></td>
+                      <td class="text-center">
+                          <a href="/data-populations/<%- dataPopulation.id %>/edit" class="btn btn-warning btn-sm">Ubah</a>
+                          <form action="/data-populations/<%- dataPopulation.id %>?_method=DELETE" class="d-inline" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button class="btn btn-danger btn-sm">Hapus</button>
+                          </form>
+                      </td>
+                    </tr>
+                  <% }) %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

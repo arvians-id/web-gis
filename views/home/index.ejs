@@ -15,7 +15,7 @@
 <script>
     const backEndVillage = JSON.parse('<%- villages %>');
     const backEndGeoJson = '<%- geojson %>';
-    function ucfisrt(string){
+    function ucfirst(string){
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
 
@@ -147,7 +147,7 @@
         let div = L.DomUtil.create('div', 'info legend');
         div.innerHTML = '<p>Indikator Kelurahan</p>';
         backEndVillage.forEach(val => {
-            div.innerHTML += `<p><i style="background:${ val[1] }"></i> ${ ucfisrt(val[0]) }</p>`;
+            div.innerHTML += `<p><i style="background:${ val[1] }"></i> ${ ucfirst(val[0]) }</p>`;
         })
 
         return div;

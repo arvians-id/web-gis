@@ -4,4 +4,5 @@ module.exports = (app, passport) => {
   require('./homeRoutes')(app);
   require('./districtRoutes')(app);
   require('./villageRoutes')(app);
+  require('./dataPopulationRoutes')(app);
 }
