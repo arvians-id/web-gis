@@ -10,19 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      this.belongsTo(models.village);
     }
   };
   Data_Population.init({
-    villageId: {
+    marker: {
       allowNull: false,
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'villages',
-        key: 'id'
-      },
-      onUpdate: 'CASCADE',
-      onDelete: 'CASCADE'
+      type: DataTypes.STRING
     },
     laki_laki: {
       allowNull: false,

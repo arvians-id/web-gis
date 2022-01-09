@@ -8,15 +8,9 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      villageId: {
+      marker: {
         allowNull: false,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'villages',
-          key: 'id'
-        },
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        type: Sequelize.STRING
       },
       laki_laki: {
         allowNull: false,

@@ -1,8 +1,8 @@
 const { check, validationResult } = require('express-validator');
 
 const rules = [
-    check('villageId')
-        .notEmpty().withMessage('The kelurahan field cannot be empty')
+    check('marker')
+        .notEmpty().withMessage('The marker field cannot be empty').bail()
         .trim()
         .escape(),
     check('laki_laki')

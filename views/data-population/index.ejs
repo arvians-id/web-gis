@@ -17,7 +17,7 @@
                 <thead>
                   <tr>
                     <th class="text-center">No</th>
-                    <th>Nama Kelurahan</th>
+                    <th>Penanda</th>
                     <th>Laki-Laki</th>
                     <th>Perempuan</th>
                     <th>Latitude</th>
@@ -29,9 +29,9 @@
                   <% dataPopulations.forEach((dataPopulation, i) => { %>
                     <tr>
                       <td class="text-center"><%- i + 1 %></td>
-                      <td><%- dataPopulation.village.nama %></td>
-                      <td><%- dataPopulation.laki_laki %> Km&sup2;</td>
-                      <td><%- dataPopulation.perempuan %> Km&sup2;</td>
+                      <td><%- dataPopulation.marker %></td>
+                      <td><%- dataPopulation.laki_laki %> Orang</td>
+                      <td><%- dataPopulation.perempuan %> Orang</td>
                       <td><%- dataPopulation.latitude %></td>
                       <td><%- dataPopulation.longitude %></td>
                       <td class="text-center">

@@ -2,29 +2,37 @@ const Models = require('../../models');
 
 exports.index = async (req, res) => {
     try {
+        let content = '../home/noData';
+
+        // District
+        const geojson = [];
+        const villages = [];
         const district = await Models.district.findOne({
             where: {
                 isActive: 1
             },
             include: ['villages']
         })
-        let content = '../home/noData';
-        const geojson = [];
-        const villages = [];
         if(district) {
-            district.villages.map(village => {
+            district.villages.map(async (village) => {
                 let filter = "/" + village.geojson.split('\\').slice(1,3).join("/")
                 geojson.push(filter);
-                villages.push([village.nama, village.warna, village.luas])
+                villages.push([village.nama, village.warna, village.luas]);
             })
             content = '../home/index';
         }
-        
+
+        // Data Popoulation
+        const dataPopulations = await Models.data_population.findAll()
+        const populations = dataPopulations.map(dataPopulation => dataPopulation.dataValues)
+
+        // Rendering
         const data = {
             title: 'Dashboard',
             content,
             district,
             geojson,
+            populations: JSON.stringify(populations),
             villages: JSON.stringify(villages),
         };
         res.render('layouts/homeLayout', data);

@@ -15,6 +15,7 @@
 <script>
     const backEndVillage = JSON.parse('<%- villages %>');
     const backEndGeoJson = '<%- geojson %>';
+    const backEndPopulation = JSON.parse('<%- populations %>')
     function ucfirst(string){
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
@@ -30,29 +31,32 @@
             popupAnchor:  [-3, -76]
         }
     });
-    orangeIcon = new LeafIcon({iconUrl: '/icons/leaf-orange.png'});
     L.icon = function (options) {
         return new L.Icon(options);
     };
-
-    var littleton = L.marker([-6.9301741,106.9159347]).bindPopup('This is Littleton, CO.'),
-        denver    = L.marker([-6.9319971,106.9098942]).bindPopup('This is Denver, CO.');
-        
-    var asu = L.marker([-6.9263813,106.9086348], {
-        icon: orangeIcon
-    }).bindPopup('This is Denver, CO.');
+    
+    // Marker Population
+    let markPopulation = [];
+    backEndPopulation.forEach(population => {
+        let show = `Data Penduduk<br>
+                    Laki-laki : ${population.laki_laki} <br>
+                    Perempuan : ${population.perempuan}
+                    <br><br>
+                    <small> ${population.marker}</small>`;
+        markPopulation.push(L.marker([population.latitude,population.longitude], {
+            icon: new LeafIcon({iconUrl: '/icons/leaf-orange.png'})
+        }).bindPopup(show))
+    })
 
     // Layer Maps
-    var asus = L.layerGroup([asu])
-    var cities = L.layerGroup([littleton, denver]);
+    var population = L.layerGroup(markPopulation);
 
 	const map = L.map('map',{
-        layers: [cities, asus]
+        layers: [population]
     }).setView(['<%= district.latitude %>', '<%= district.longitude %>'], 14);
 
     var overlayMaps = {
-        "Cities": cities,
-        "Asus": asus
+        "Data Penduduk": population,
     };
 
     L.control.layers(null, overlayMaps, {position: 'bottomleft'}).addTo(map);
