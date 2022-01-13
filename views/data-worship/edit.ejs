@@ -1,0 +1,74 @@
+<div class="section-body">
+  <h2 class="section-title">Ubah Data Peribadahan</h2>
+  <p class="section-lead">
+    Jika anda ingin meilhat data peribadahan <a href="/data-worships">Klik disini</a>.
+  </p>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>Ubah Data Peribadahan</h4>
+        </div>
+        <div class="card-body">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+              <%- include('../layouts/partials/alerts') %>
+            </div>
+          </div>
+          <form action="/data-worships/<%= dataWorship.id %>?_method=PUT" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Penanda</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" name="marker" value="<%- old.marker ? old.marker : dataWorship.marker %>" class="form-control" placeholder="contoh: Nama kelurahan">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Islam</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="number" name="islam" value="<%- old.islam ? old.islam : dataWorship.islam %>" class="form-control" placeholder="contoh: 20">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Gereja</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="number" name="gereja" value="<%- old.gereja ? old.gereja : dataWorship.gereja %>" class="form-control" placeholder="contoh: 20">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Pura</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="number" name="pura" value="<%- old.pura ? old.pura : dataWorship.pura %>" class="form-control" placeholder="contoh: 10">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Vihara</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="number" name="vihara" value="<%- old.vihara ? old.vihara : dataWorship.vihara %>" class="form-control" placeholder="contoh: 10">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Latitude</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" name="latitude" value="<%- old.latitude ? old.latitude : dataWorship.latitude %>" class="form-control" placeholder="contoh: -6.9301741">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Longitude</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" name="longitude" value="<%- old.longitude ? old.longitude : dataWorship.longitude %>" class="form-control" placeholder="contoh: 106.9159347">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+              <div class="col-sm-12 col-md-7">
+                <button class="btn btn-primary">Simpan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

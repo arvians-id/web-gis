@@ -1,0 +1,74 @@
+<div class="section-body">
+  <h2 class="section-title">Ubah Data Pencaharian</h2>
+  <p class="section-lead">
+    Jika anda ingin meilhat data Pencaharian <a href="/data-livelihoods">Klik disini</a>.
+  </p>
+
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-header">
+          <h4>Ubah Data Pencaharian</h4>
+        </div>
+        <div class="card-body">
+          <div class="row justify-content-center">
+            <div class="col-12 col-md-8">
+              <%- include('../layouts/partials/alerts') %>
+            </div>
+          </div>
+          <form action="/data-livelihoods/<%= dataLivelihood.id %>?_method=PUT" method="POST">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Penanda</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" name="marker" value="<%- old.marker ? old.marker : dataLivelihood.marker %>" class="form-control" placeholder="contoh: Nama kelurahan">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">PNS</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="number" name="pns" value="<%- old.pns ? old.pns : dataLivelihood.pns %>" class="form-control" placeholder="contoh: 20">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Karyawan BUMN</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="number" name="bumn" value="<%- old.bumn ? old.bumn : dataLivelihood.bumn %>" class="form-control" placeholder="contoh: 20">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">TNI</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="number" name="tni" value="<%- old.tni ? old.tni : dataLivelihood.tni %>" class="form-control" placeholder="contoh: 10">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Polisi</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="number" name="polisi" value="<%- old.polisi ? old.polisi : dataLivelihood.polisi %>" class="form-control" placeholder="contoh: 10">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Latitude</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" name="latitude" value="<%- old.latitude ? old.latitude : dataLivelihood.latitude %>" class="form-control" placeholder="contoh: -6.9301741">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Longitude</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="text" name="longitude" value="<%- old.longitude ? old.longitude : dataLivelihood.longitude %>" class="form-control" placeholder="contoh: 106.9159347">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+              <div class="col-sm-12 col-md-7">
+                <button class="btn btn-primary">Simpan</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

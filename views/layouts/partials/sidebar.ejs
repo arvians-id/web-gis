@@ -1,3 +1,4 @@
+<% let url = ['data-religions', 'data-populations', 'data-livelihoods', 'data-lives', 'data-worships', 'data-healths', 'data-schools']%>
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
@@ -12,10 +13,28 @@
         <li class="menu-header">Master Data</li>
         <li <%- currentUrl[1] == 'districts' ? 'class="active"' : '' %>><a class="nav-link" href="/districts"><i class="fas fa-building"></i> <span>Kecamatan</span></a></li>
         <li <%- currentUrl[1] == 'villages' ? 'class="active"' : '' %>><a class="nav-link" href="/villages"><i class="fas fa-archway"></i> <span>Kelurahan</span></a></li>
-        <li class="nav-item dropdown<%- currentUrl[1] == 'data-populations' ? ' active' : '' %>">
+        <li class="nav-item dropdown<%- url.includes(currentUrl[1]) ? ' active' : '' %>">
           <a href="#" class="nav-link has-dropdown" data-toggle="dropdown"><i class="fas fa-map-marker-alt"></i> <span>Data</span></a>
           <ul class="dropdown-menu">
             <li <%- currentUrl[1] == 'data-populations' ? 'class="active"' : '' %>><a class="nav-link" href="/data-populations">Data Penduduk</a></li>
+          </ul>
+          <ul class="dropdown-menu">
+            <li <%- currentUrl[1] == 'data-religions' ? 'class="active"' : '' %>><a class="nav-link" href="/data-religions">Data Agama</a></li>
+          </ul>
+          <ul class="dropdown-menu">
+            <li <%- currentUrl[1] == 'data-livelihoods' ? 'class="active"' : '' %>><a class="nav-link" href="/data-livelihoods">Data Mata Pencaharian</a></li>
+          </ul>
+          <ul class="dropdown-menu">
+            <li <%- currentUrl[1] == 'data-lives' ? 'class="active"' : '' %>><a class="nav-link" href="/data-lives">Data Penduduk Hidup</a></li>
+          </ul>
+          <ul class="dropdown-menu">
+            <li <%- currentUrl[1] == 'data-worships' ? 'class="active"' : '' %>><a class="nav-link" href="/data-worships">Data Peribadahan</a></li>
+          </ul>
+          <ul class="dropdown-menu">
+            <li <%- currentUrl[1] == 'data-healths' ? 'class="active"' : '' %>><a class="nav-link" href="/data-healths">Data Sarana Kesehatan</a></li>
+          </ul>
+          <ul class="dropdown-menu">
+            <li <%- currentUrl[1] == 'data-schools' ? 'class="active"' : '' %>><a class="nav-link" href="/data-schools">Data Sekolah</a></li>
           </ul>
         </li>
       </ul>

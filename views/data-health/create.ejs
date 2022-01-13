@@ -1,14 +1,14 @@
 <div class="section-body">
-  <h2 class="section-title">Buat Data Penduduk</h2>
+  <h2 class="section-title">Buat Data Sarana Kesehatan</h2>
   <p class="section-lead">
-    Jika anda ingin meilhat data penduduk <a href="/data-populations">Klik disini</a>.
+    Jika anda ingin meilhat data sarana kesehatan <a href="/data-healths">Klik disini</a>.
   </p>
 
   <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h4>Buat Data Penduduk</h4>
+          <h4>Buat Data Sarana Kesehatan</h4>
         </div>
         <div class="card-body">
           <div class="row justify-content-center">
@@ -16,7 +16,7 @@
               <%- include('../layouts/partials/alerts') %>
             </div>
           </div>
-          <form action="/data-populations" method="POST">
+          <form action="/data-healths" method="POST">
             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
             <div class="form-group row mb-4">
               <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Penanda</label>
@@ -25,15 +25,21 @@
               </div>
             </div>
             <div class="form-group row mb-4">
-              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Laki-laki</label>
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Rumah Sakit</label>
               <div class="col-sm-12 col-md-7">
-                <input type="number" name="laki_laki" value="<%- old.laki_laki %>" class="form-control" placeholder="contoh: 20">
+                <input type="number" name="rumah_sakit" value="<%- old.rumah_sakit %>" class="form-control" placeholder="contoh: 20">
               </div>
             </div>
             <div class="form-group row mb-4">
-              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Perempuan</label>
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Rumah Sakit Bersalin</label>
               <div class="col-sm-12 col-md-7">
-                <input type="number" name="perempuan" value="<%- old.perempuan %>" class="form-control" placeholder="contoh: 10">
+                <input type="number" name="rumah_sakit_bersalin" value="<%- old.rumah_sakit_bersalin %>" class="form-control" placeholder="contoh: 20">
+              </div>
+            </div>
+            <div class="form-group row mb-4">
+              <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Poliklinik</label>
+              <div class="col-sm-12 col-md-7">
+                <input type="number" name="poliklinik" value="<%- old.poliklinik %>" class="form-control" placeholder="contoh: 10">
               </div>
             </div>
             <div class="form-group row mb-4">

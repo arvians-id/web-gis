@@ -1,14 +1,14 @@
 <div class="section-body">
-  <h2 class="section-title">Penduduk</h2>
+  <h2 class="section-title">Sarana Kesehatan</h2>
   <p class="section-lead">
-    Jika anda ingin membuat data penduduk <a href="/data-populations/create">Klik disini</a>.
+    Jika anda ingin membuat data sarana kesehatan <a href="/data-healths/create">Klik disini</a>.
   </p>
 
   <div class="row">
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h4>Data Penduduk</h4>
+          <h4>Data Sarana Kesehatan</h4>
         </div>
         <div class="card-body">
           <%- include('../layouts/partials/alerts') %>
@@ -18,25 +18,27 @@
                 <tr>
                   <th class="text-center">No</th>
                   <th>Penanda</th>
-                  <th>Laki-Laki</th>
-                  <th>Perempuan</th>
-                  <th>Latitude</th>
+                  <th>Rumah Sakit</th>
+                  <th>Rumah Sakit Bersalin</th>
+                  <th>Poliklinik</th>
+                  <th>Longitude</th>
                   <th>Longitude</th>
                   <th class="text-center">Aksi</th>
                 </tr>
               </thead>
               <tbody>
-                <% dataPopulations.forEach((dataPopulation, i) => { %>
+                <% dataHealths.forEach((dataHealth, i) => { %>
                   <tr>
                     <td class="text-center"><%- i + 1 %></td>
-                    <td><%- dataPopulation.marker %></td>
-                    <td><%- dataPopulation.laki_laki %> Orang</td>
-                    <td><%- dataPopulation.perempuan %> Orang</td>
-                    <td><%- dataPopulation.latitude %></td>
-                    <td><%- dataPopulation.longitude %></td>
+                    <td><%- dataHealth.marker %></td>
+                    <td><%- dataHealth.rumah_sakit %> Orang</td>
+                    <td><%- dataHealth.rumah_sakit_bersalin %> Orang</td>
+                    <td><%- dataHealth.poliklinik %> Orang</td>
+                    <td><%- dataHealth.latitude %></td>
+                    <td><%- dataHealth.longitude %></td>
                     <td class="text-center">
-                        <a href="/data-populations/<%- dataPopulation.id %>/edit" class="btn btn-warning btn-sm">Ubah</a>
-                        <form action="/data-populations/<%- dataPopulation.id %>?_method=DELETE" class="d-inline" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                        <a href="/data-healths/<%- dataHealth.id %>/edit" class="btn btn-warning btn-sm">Ubah</a>
+                        <form action="/data-healths/<%- dataHealth.id %>?_method=DELETE" class="d-inline" method="POST" onsubmit="return confirm('Yakin ingin menghapus data ini?')">
                           <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                           <button class="btn btn-danger btn-sm">Hapus</button>
                         </form>
