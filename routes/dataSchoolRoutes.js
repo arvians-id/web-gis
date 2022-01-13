@@ -8,6 +8,7 @@ module.exports = app => {
     router.get('/', isAuthenticated, dataSchoolController.index);
     router.get('/create', isAuthenticated, dataSchoolController.create);
     router.post('/', isAuthenticated, storeValidation, dataSchoolController.store);
+    router.post('/download', isAuthenticated, dataSchoolController.download);
     router.get('/:id/edit', isAuthenticated, dataSchoolController.edit);
     router.put('/:id', isAuthenticated, updateValidation, dataSchoolController.update);
     router.delete('/:id', isAuthenticated, dataSchoolController.destroy);

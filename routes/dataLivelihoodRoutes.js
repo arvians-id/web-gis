@@ -8,6 +8,7 @@ module.exports = app => {
     router.get('/', isAuthenticated, dataLivelihoodController.index);
     router.get('/create', isAuthenticated, dataLivelihoodController.create);
     router.post('/', isAuthenticated, storeValidation, dataLivelihoodController.store);
+    router.post('/download', isAuthenticated, dataLivelihoodController.download);
     router.get('/:id/edit', isAuthenticated, dataLivelihoodController.edit);
     router.put('/:id', isAuthenticated, updateValidation, dataLivelihoodController.update);
     router.delete('/:id', isAuthenticated, dataLivelihoodController.destroy);

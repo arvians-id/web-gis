@@ -15,20 +15,23 @@
 <script>
     const backEndVillage = JSON.parse('<%- villages %>');
     const backEndGeoJson = '<%- geojson %>';
-    const backEndPopulation = JSON.parse('<%- populations %>')
+    const backEndPopulation = JSON.parse('<%- populations %>');
+    const backEndReligion = JSON.parse('<%- religions %>');
+    const backEndLivelihood = JSON.parse('<%- livelihoods %>');
+    const backEndLive = JSON.parse('<%- lives %>');
+    const backEndWorship = JSON.parse('<%- worships %>');
+    const backEndHealth = JSON.parse('<%- healths %>');
+    const backEndSchool = JSON.parse('<%- schools %>');
     function ucfirst(string){
         return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
     }
 
     // ICON
-    var LeafIcon = L.Icon.extend({
+    const LeafIcon = L.Icon.extend({
         options: {
-            shadowUrl: '/icons/leaf-shadow.png',
-            iconSize:     [38, 95],
-            shadowSize:   [50, 64],
-            iconAnchor:   [22, 94],
-            shadowAnchor: [4, 62],
-            popupAnchor:  [-3, -76]
+            iconSize:     [28, 30],
+            iconAnchor:   [22, 30],
+            popupAnchor:  [-8, -35]
         }
     });
     L.icon = function (options) {
@@ -44,19 +47,120 @@
                     <br><br>
                     <small> ${population.marker}</small>`;
         markPopulation.push(L.marker([population.latitude,population.longitude], {
-            icon: new LeafIcon({iconUrl: '/icons/leaf-orange.png'})
+            icon: new LeafIcon({iconUrl: '/icons/population.png'})
+        }).bindPopup(show))
+    })
+    
+    // Marker Religion
+    let markReligion = [];
+    backEndReligion.forEach(religion => {
+        let show = `Data Agama<br>
+                    Islam : ${religion.islam} <br>
+                    Budha : ${religion.budha} <br>
+                    Hindu : ${religion.hindu} <br>
+                    Katolik : ${religion.katolik}
+                    <br><br>
+                    <small> ${religion.marker}</small>`;
+        markReligion.push(L.marker([religion.latitude,religion.longitude], {
+            icon: new LeafIcon({iconUrl: '/icons/religion.png'})
+        }).bindPopup(show))
+    })
+    
+    // Marker Livelihood
+    let markLivelihood = [];
+    backEndLivelihood.forEach(livelihood => {
+        let show = `Data Mata Pencaharian<br>
+                    PNS : ${livelihood.pns} <br>
+                    Karyawan BUMN : ${livelihood.bumn} <br>
+                    TNI : ${livelihood.tni} <br>
+                    Polisi : ${livelihood.polisi}
+                    <br><br>
+                    <small> ${livelihood.marker}</small>`;
+        markLivelihood.push(L.marker([livelihood.latitude,livelihood.longitude], {
+            icon: new LeafIcon({iconUrl: '/icons/livelihood.png'})
+        }).bindPopup(show))
+    })
+    
+    // Marker Live
+    let markLive = [];
+    backEndLive.forEach(live => {
+        let show = `Data Penduduk Hidup<br>
+                    Lahir : ${live.lahir} <br>
+                    Mati : ${live.mati} <br>
+                    Datang : ${live.datang} <br>
+                    Pindah : ${live.pindah}
+                    <br><br>
+                    <small> ${live.marker}</small>`;
+        markLive.push(L.marker([live.latitude,live.longitude], {
+            icon: new LeafIcon({iconUrl: '/icons/live.png'})
+        }).bindPopup(show))
+    })
+
+    // Marker Worship
+    let markWorship = [];
+    backEndWorship.forEach(worship => {
+        let show = `Data Peribadahan<br>
+                    Islam : ${worship.islam} <br>
+                    Gereja : ${worship.gereja} <br>
+                    Pura : ${worship.pura} <br>
+                    Vihara : ${worship.vihara}
+                    <br><br>
+                    <small> ${worship.marker}</small>`;
+        markWorship.push(L.marker([worship.latitude,worship.longitude], {
+            icon: new LeafIcon({iconUrl: '/icons/worship.png'})
+        }).bindPopup(show))
+    })
+    
+    // Marker Health
+    let markHealth = [];
+    backEndHealth.forEach(health => {
+        let show = `Data Sarana Kesehatan<br>
+                    Rumah Sakit : ${health.rumah_sakit} <br>
+                    Rumah Sakit Bersalin : ${health.rumah_sakit_bersalin} <br>
+                    Poliklinik : ${health.poliklinik}
+                    <br><br>
+                    <small> ${health.marker}</small>`;
+        markHealth.push(L.marker([health.latitude,health.longitude], {
+            icon: new LeafIcon({iconUrl: '/icons/health.png'})
+        }).bindPopup(show))
+    })
+
+    // Marker School
+    let markSchool = [];
+    backEndSchool.forEach(school => {
+        let show = `Data Sekolah<br>
+                    SD : ${school.sd} <br>
+                    MI : ${school.mi} <br>
+                    SMP : ${school.smp} <br>
+                    MTS : ${school.mts}
+                    <br><br>
+                    <small> ${school.marker}</small>`;
+        markSchool.push(L.marker([school.latitude,school.longitude], {
+            icon: new LeafIcon({iconUrl: '/icons/school.png'})
         }).bindPopup(show))
     })
 
     // Layer Maps
-    var population = L.layerGroup(markPopulation);
+    const population = L.layerGroup(markPopulation);
+    const religion = L.layerGroup(markReligion);
+    const livelihood = L.layerGroup(markLivelihood);
+    const live = L.layerGroup(markLive);
+    const worship = L.layerGroup(markWorship);
+    const health = L.layerGroup(markHealth);
+    const school = L.layerGroup(markSchool);
 
 	const map = L.map('map',{
-        layers: [population]
+        layers: [population, religion, livelihood, live, worship, health, school]
     }).setView(['<%= district.latitude %>', '<%= district.longitude %>'], 14);
 
-    var overlayMaps = {
+    const overlayMaps = {
         "Data Penduduk": population,
+        "Data Agama": religion,
+        "Data Mata Pencaharian": livelihood,
+        "Data Penduduk Hidup": live,
+        "Data Peribadahan": worship,
+        "Data Sarana Kesehatan": health,
+        "Data Sekolah": school,
     };
 
     L.control.layers(null, overlayMaps, {position: 'bottomleft'}).addTo(map);
@@ -70,7 +174,7 @@
 		zoomOffset: -1
 	}).addTo(map);
 
-    var info = L.control();
+    const info = L.control();
 
     // RIGHT POPUP
     info.onAdd = function (map) {

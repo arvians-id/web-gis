@@ -101,3 +101,9 @@ exports.destroy = async (req, res) => {
         res.redirect('/failure');
     }
 }
+
+exports.download = async (req, res) => {
+    var file = __dirname + '../../../../public/crystal-report/Data_Penduduk.pdf';
+
+    res.download(file)
+}

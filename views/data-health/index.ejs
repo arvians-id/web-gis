@@ -50,6 +50,10 @@
           </div>
         </div>
       </div>
+      <form action="/data-healths/download" method="POST">
+        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+        <button class="btn btn-primary btn-sm">Download Crystal Report</button>
+      </form>
     </div>
   </div>
 </div>

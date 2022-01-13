@@ -8,6 +8,7 @@ module.exports = app => {
     router.get('/', isAuthenticated, dataPopoulationController.index);
     router.get('/create', isAuthenticated, dataPopoulationController.create);
     router.post('/', isAuthenticated, storeValidation, dataPopoulationController.store);
+    router.post('/download', isAuthenticated, dataPopoulationController.download);
     router.get('/:id/edit', isAuthenticated, dataPopoulationController.edit);
     router.put('/:id', isAuthenticated, updateValidation, dataPopoulationController.update);
     router.delete('/:id', isAuthenticated, dataPopoulationController.destroy);
