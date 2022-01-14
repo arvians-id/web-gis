@@ -107,3 +107,18 @@ exports.download = async (req, res) => {
 
     res.download(file)
 }
+
+exports.statistic = async (req, res) => {
+    try {
+        const dataPopulations = await Models.data_population.findAll();
+        const data = {
+            title: 'Statistik Data Punduduk',
+            dataPopulations: JSON.stringify(dataPopulations),
+        };
+
+        res.render('data-population/statistic', data);
+    } catch (error) {
+        req.flash('fail', error.message);
+        res.redirect('/failure');
+    }
+}

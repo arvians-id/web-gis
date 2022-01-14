@@ -111,3 +111,18 @@ exports.download = async (req, res) => {
 
     res.download(file)
 }
+
+exports.statistic = async (req, res) => {
+    try {
+        const dataReligions = await Models.data_religion.findAll();
+        const data = {
+            title: 'Statistik Data Agama',
+            dataReligions: JSON.stringify(dataReligions),
+        };
+
+        res.render('data-religion/statistic', data);
+    } catch (error) {
+        req.flash('fail', error.message);
+        res.redirect('/failure');
+    }
+}

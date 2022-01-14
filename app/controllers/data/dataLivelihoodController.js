@@ -111,3 +111,18 @@ exports.download = async (req, res) => {
 
     res.download(file)
 }
+
+exports.statistic = async (req, res) => {
+    try {
+        const dataLivelihoods = await Models.data_livelihood.findAll();
+        const data = {
+            title: 'Statistik Data Mata Pencaharian',
+            dataLivelihoods: JSON.stringify(dataLivelihoods),
+        };
+
+        res.render('data-livelihood/statistic', data);
+    } catch (error) {
+        req.flash('fail', error.message);
+        res.redirect('/failure');
+    }
+}

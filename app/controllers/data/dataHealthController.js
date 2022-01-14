@@ -109,3 +109,18 @@ exports.download = async (req, res) => {
 
     res.download(file)
 }
+
+exports.statistic = async (req, res) => {
+    try {
+        const dataHealths = await Models.data_health.findAll();
+        const data = {
+            title: 'Statistik Data Sarana Kesehatan',
+            dataHealths: JSON.stringify(dataHealths),
+        };
+
+        res.render('data-health/statistic', data);
+    } catch (error) {
+        req.flash('fail', error.message);
+        res.redirect('/failure');
+    }
+}

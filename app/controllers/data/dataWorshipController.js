@@ -111,3 +111,18 @@ exports.download = async (req, res) => {
 
     res.download(file)
 }
+
+exports.statistic = async (req, res) => {
+    try {
+        const dataWorships = await Models.data_worship.findAll();
+        const data = {
+            title: 'Statistik Data Peribadahan',
+            dataWorships: JSON.stringify(dataWorships),
+        };
+
+        res.render('data-worship/statistic', data);
+    } catch (error) {
+        req.flash('fail', error.message);
+        res.redirect('/failure');
+    }
+}

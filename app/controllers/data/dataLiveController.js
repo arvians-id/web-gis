@@ -111,3 +111,18 @@ exports.download = async (req, res) => {
 
     res.download(file)
 }
+
+exports.statistic = async (req, res) => {
+    try {
+        const dataLives = await Models.data_live.findAll();
+        const data = {
+            title: 'Statistik Data Punduduk Hidup',
+            dataLives: JSON.stringify(dataLives),
+        };
+
+        res.render('data-live/statistic', data);
+    } catch (error) {
+        req.flash('fail', error.message);
+        res.redirect('/failure');
+    }
+}

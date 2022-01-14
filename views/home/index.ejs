@@ -27,7 +27,7 @@
     }
 
     // ICON
-    const LeafIcon = L.Icon.extend({
+    const Icon = L.Icon.extend({
         options: {
             iconSize:     [28, 30],
             iconAnchor:   [22, 30],
@@ -47,7 +47,7 @@
                     <br><br>
                     <small> ${population.marker}</small>`;
         markPopulation.push(L.marker([population.latitude,population.longitude], {
-            icon: new LeafIcon({iconUrl: '/icons/population.png'})
+            icon: new Icon({iconUrl: '/icons/population.png'})
         }).bindPopup(show))
     })
     
@@ -62,7 +62,7 @@
                     <br><br>
                     <small> ${religion.marker}</small>`;
         markReligion.push(L.marker([religion.latitude,religion.longitude], {
-            icon: new LeafIcon({iconUrl: '/icons/religion.png'})
+            icon: new Icon({iconUrl: '/icons/religion.png'})
         }).bindPopup(show))
     })
     
@@ -77,7 +77,7 @@
                     <br><br>
                     <small> ${livelihood.marker}</small>`;
         markLivelihood.push(L.marker([livelihood.latitude,livelihood.longitude], {
-            icon: new LeafIcon({iconUrl: '/icons/livelihood.png'})
+            icon: new Icon({iconUrl: '/icons/livelihood.png'})
         }).bindPopup(show))
     })
     
@@ -92,7 +92,7 @@
                     <br><br>
                     <small> ${live.marker}</small>`;
         markLive.push(L.marker([live.latitude,live.longitude], {
-            icon: new LeafIcon({iconUrl: '/icons/live.png'})
+            icon: new Icon({iconUrl: '/icons/live.png'})
         }).bindPopup(show))
     })
 
@@ -107,7 +107,7 @@
                     <br><br>
                     <small> ${worship.marker}</small>`;
         markWorship.push(L.marker([worship.latitude,worship.longitude], {
-            icon: new LeafIcon({iconUrl: '/icons/worship.png'})
+            icon: new Icon({iconUrl: '/icons/worship.png'})
         }).bindPopup(show))
     })
     
@@ -121,7 +121,7 @@
                     <br><br>
                     <small> ${health.marker}</small>`;
         markHealth.push(L.marker([health.latitude,health.longitude], {
-            icon: new LeafIcon({iconUrl: '/icons/health.png'})
+            icon: new Icon({iconUrl: '/icons/health.png'})
         }).bindPopup(show))
     })
 
@@ -136,7 +136,7 @@
                     <br><br>
                     <small> ${school.marker}</small>`;
         markSchool.push(L.marker([school.latitude,school.longitude], {
-            icon: new LeafIcon({iconUrl: '/icons/school.png'})
+            icon: new Icon({iconUrl: '/icons/school.png'})
         }).bindPopup(show))
     })
 
@@ -164,6 +164,16 @@
     };
 
     L.control.layers(null, overlayMaps, {position: 'bottomleft'}).addTo(map);
+
+    // Marker
+    const marker = L.marker(new L.LatLng(-6.912197517620975, 106.9193744659424), {
+        draggable: true,
+        icon: new Icon({iconUrl: '/icons/marker.png'})
+    });
+    marker.on('dragend', function (e) {
+        let popup = `Latitude: ${marker.getLatLng().lat.toString()} <br> Longitude: ${marker.getLatLng().lng.toString()}`
+        marker.bindPopup(popup)
+    }).addTo(map);
 
 	const tiles = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,

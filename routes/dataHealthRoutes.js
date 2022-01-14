@@ -9,6 +9,7 @@ module.exports = app => {
     router.get('/create', isAuthenticated, dataHealthController.create);
     router.post('/', isAuthenticated, storeValidation, dataHealthController.store);
     router.post('/download', isAuthenticated, dataHealthController.download);
+    router.get('/statistic', isAuthenticated, dataHealthController.statistic);
     router.get('/:id/edit', isAuthenticated, dataHealthController.edit);
     router.put('/:id', isAuthenticated, updateValidation, dataHealthController.update);
     router.delete('/:id', isAuthenticated, dataHealthController.destroy);

@@ -52,10 +52,11 @@
           </div>
         </div>
       </div>
-      <form action="/data-lives/download" method="POST">
+      <form action="/data-lives/download" method="POST" class="d-inline">
         <input type="hidden" name="_csrf" value="<%= csrfToken %>">
         <button class="btn btn-primary btn-sm">Download Crystal Report</button>
       </form>
+      <a href="/data-lives/statistic" class="btn btn-primary btn-sm">Lihat Grafik</a>
     </div>
   </div>
 </div>

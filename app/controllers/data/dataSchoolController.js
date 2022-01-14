@@ -111,3 +111,18 @@ exports.download = async (req, res) => {
 
     res.download(file)
 }
+
+exports.statistic = async (req, res) => {
+    try {
+        const dataSchools = await Models.data_school.findAll();
+        const data = {
+            title: 'Statistik Data Sekolah',
+            dataSchools: JSON.stringify(dataSchools),
+        };
+
+        res.render('data-school/statistic', data);
+    } catch (error) {
+        req.flash('fail', error.message);
+        res.redirect('/failure');
+    }
+}
