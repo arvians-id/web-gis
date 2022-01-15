@@ -18,7 +18,7 @@ Website ini dibangun dengan menggunakan Node Express JS
 7. Setelah itu, buka folder ([folder-project-anda]\public\templates\stisla-master)
 8. Buka terminal dan lakukan perintah "yarn" tunggu hingga selesai (posisi folder mengacu di poin 7)
 9. Setelah selesai, kembali ke root folder project anda
-10. Buka terminal dan lakukan perintah ($ npx sequelize db:migrate) lalu ($ npm start)
+10. Buka terminal dan lakukan perintah "npx sequelize db:migrate" lalu "npm i -g nodemon --save" dan terakhir "npm start"
 11. Buka project pada url (http://127.0.0.1:8000)
 
 # Credits
