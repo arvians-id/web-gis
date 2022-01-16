@@ -138,9 +138,9 @@ exports.map = async (req, res) => {
             };
 
             res.render('home/map', data);
+        }else{
+            res.redirect('/');
         }
-
-        res.redirect('/');
     } catch (error) {
         req.flash('fail', error.message);
         res.redirect('/failure');

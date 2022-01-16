@@ -72,7 +72,6 @@ exports.update = async (req, res) => {
             luas: req.body.luas,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
-            isActive: 0,
         },{
             where: {
                 id: req.params.id
