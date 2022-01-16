@@ -38,6 +38,7 @@ exports.store = async (req, res) => {
             budha: req.body.budha,
             hindu: req.body.hindu,
             katolik: req.body.katolik,
+            protestan: req.body.protestan,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
         });
@@ -74,6 +75,7 @@ exports.update = async (req, res) => {
             budha: req.body.budha,
             hindu: req.body.hindu,
             katolik: req.body.katolik,
+            protestan: req.body.protestan,
             latitude: req.body.latitude,
             longitude: req.body.longitude,
         },{

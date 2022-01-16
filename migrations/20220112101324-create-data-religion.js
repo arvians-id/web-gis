@@ -28,6 +28,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.INTEGER
       },
+      protestan: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       latitude: {
         allowNull: false,
         type: Sequelize.STRING

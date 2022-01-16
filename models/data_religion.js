@@ -34,6 +34,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       type: DataTypes.INTEGER
     },
+    protestan: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
     latitude: {
       allowNull: false,
       type: DataTypes.STRING

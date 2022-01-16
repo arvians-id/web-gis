@@ -71,12 +71,14 @@
     const budha = [];
     const hindu = [];
     const katolik = [];
+    const protestan = [];
     JSON.parse('<%- dataReligions %>').map(val => {
       labels.push(val.marker);
       islam.push(val.islam);
       budha.push(val.budha);
       hindu.push(val.hindu);
       katolik.push(val.katolik);
+      protestan.push(val.protestan);
     });
 
     new Chart(document.getElementById('chart').getContext('2d'), {
@@ -104,6 +106,12 @@
             },{
                 label: '# Katolik',
                 data: katolik,
+                backgroundColor: [
+                    'rgba(75, 192, 192, 0.2)',
+                ]
+            },{
+                label: '# Protestan',
+                data: protestan,
                 backgroundColor: [
                     'rgba(75, 192, 192, 0.2)',
                 ]

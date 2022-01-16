@@ -25,6 +25,11 @@ const rules = [
         .isNumeric().withMessage('The katolik field must number')
         .trim()
         .escape(),
+    check('protestan')
+        .notEmpty().withMessage('The protestan field cannot be empty').bail()
+        .isNumeric().withMessage('The protestan field must number')
+        .trim()
+        .escape(),
     check('latitude')
         .notEmpty().withMessage('The latitude field cannot be empty').bail()
         .isFloat().withMessage('The latitude field invalid')
