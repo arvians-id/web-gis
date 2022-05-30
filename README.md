@@ -21,6 +21,12 @@ Website ini dibangun dengan menggunakan Node Express JS
 10. Buka terminal dan lakukan perintah "npx sequelize db:migrate" lalu "npm i -g nodemon --save" dan terakhir "npm start"
 11. Buka project pada url (http://127.0.0.1:8000)
 
-# Credits
+## Authors
 
-- Widdy Arfiansyah (https://github.com/arvians-id)
+- [@arvians-id](https://www.github.com/arvians-id)
+
+## Contribute
+Support saya agar lebih banyak berkontribusi dalam membuat sebuah project aplikasi berbasis website sederhana
+
+- Saweria : https://saweria.co/widdyarfian
+
